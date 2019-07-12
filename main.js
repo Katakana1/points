@@ -1,7 +1,7 @@
 var game = {
-  points = 0,
-  clickPower = 1,
+  points: 0,
+  clickPower: 1,
 }
 function click() {
-  points+=clickPower;
+  game.points+=game.clickPower;
 };
