@@ -3,3 +3,10 @@ body {
   font-size: 20px;
   font-family: "Arial";
 }
+button {
+  font-family: arial;
+  font-size: 20;
+  background-color: black;
+  color: white;
+  border-color: white;
+}
