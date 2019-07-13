@@ -19,9 +19,9 @@ function G1() {
   }
 };
 setInterval(function() {
-  game.points+=(G1.amt*G1.pow)/30;
+  game.points+=(game.G1.amt*game.G1.pow)/30;
   updt();
-}, 1/30);
+}, 1000/30);
 function updt(){
   document.getElementById("points").textContent = "You have " + Math.round(game.points) + " points.";
   if(Math.round(game.clickPower) != 1){
