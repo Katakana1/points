@@ -13,11 +13,11 @@ var game = {
     cost: 300,
   },
   upgradeArray: [1337, 0, 0, 0],
-  buttonArray: [420, "<button type = 'upper' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>"
-    , "<button type = 'upper' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>", ""],
-  strArray: [69, "<button type = 'upper' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>",
-    "<button type = 'upper' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>",
-    "<button type = 'upper' onclick = 'u3()'>Upgrade G1s [2]<br>Costs 2,300 points<br>x3 multiplier to G1s</button><br>"],
+  buttonArray: [420, "<upgr type = 'button' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</upgr><br>"
+    , "<upgr type = 'upper' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</upgr><br>", ""],
+  strArray: [69, "<button type = 'button' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</upgr><br>",
+    "<upgr type = 'button' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</upgr><br>",
+    "<upgr type = 'button' onclick = 'u3()'>Upgrade G1s [2]<br>Costs 2,300 points<br>x3 multiplier to G1s</upgr><br>"],
 }
 function commaNumber(x) {
   x = x.toString();
