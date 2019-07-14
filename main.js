@@ -39,6 +39,7 @@ function updtGs() {
 function updtUps() {
   document.getElementById("upgrades").innerHTML = game.buttonArray[1] + game.buttonArray[2] + game.buttonArray[3];
 };
+updtUps();
 function G1() {
   if (game.points >= game.G1.cost) {
     game.points -= game.G1.cost;
