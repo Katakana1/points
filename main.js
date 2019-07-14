@@ -17,15 +17,17 @@ var game = {
     pow: 450,
     cost: 9000,
   },
-  upgradeArray: [1337, 0, 0, 0, 0, 0],
+  upgradeArray: [1337, 0, 0, 0, 0, 0, 0, 0],
   buttonArray: [420, "<button style = 'font-size:15px' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>", 
     "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>", "",
-    "<button style = 'font-size:15px' onclick = 'u4()'>Upgrade G2s<br>Costs 11,000 points<br>x4 multiplier to G2s</button><br>", ""],
+    "<button style = 'font-size:15px' onclick = 'u4()'>Upgrade G2s<br>Costs 29,000 points<br>x4 multiplier to G2s</button><br>", "", "", ""],
   strArray: [69, "<button style = 'font-size:15px' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>",
     "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>",
     "<button style = 'font-size:15px' onclick = 'u3()'>Upgrade G1s [2]<br>Costs 2,300 points<br>x3 multiplier to G1s</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u4()'>Upgrade G2s<br>Costs 11,000 points<br>x4 multiplier to G2s</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u5()'>Upgrade G2s [2]<br>Costs 70,000 points<br>x3 multiplier to G2s</button><br>"],
+    "<button style = 'font-size:15px' onclick = 'u4()'>Upgrade G2s<br>Costs 29,000 points<br>x3 multiplier to G2s</button><br>",
+    "<button style = 'font-size:15px' onclick = 'u5()'>Upgrade G2s [2]<br>Costs 111,111 points<br>x2 multiplier to G2s</button><br>",
+    "<button style = 'font-size:15px' onclick = 'u6()'>Upgrade G1s [3]<br>Costs 9,000 points<br>x3 multiplier to G1s</button><br>",
+    "<button style = 'font-size:15px' onclick = 'u7()'>Upgrade G1s [4]<br>Costs 66,000 points<br>x3 multiplier to G1s</button><br>"],
 }
 started = true;
 function commaNumber(x) {
@@ -46,7 +48,7 @@ function updtGs() {
   document.getElementById("g2cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G2.cost)) + " points.";
   document.getElementById("g3amt").textContent = "You have " + commaNumber(Math.round(game.G3.amt)) + " G3s, each producing " + commaNumber(Math.round(game.G3.pow)) + " points/sec.";
   document.getElementById("g3cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G3.cost)) + " points.";
-  document.getElementById("upgrades").innerHTML = game.buttonArray[1] + game.buttonArray[2] + game.buttonArray[3] + game.buttonArray[4] + game.buttonArray[5];
+  document.getElementById("upgrades").innerHTML = game.buttonArray[1] + game.buttonArray[2] + game.buttonArray[3] + game.buttonArray[4] + game.buttonArray[5] + game.buttonArray[6] + game.buttonArray[7];
 };
 function G1() {
   if (game.points >= game.G1.cost) {
@@ -97,14 +99,14 @@ function u3() {
     game.points -= 2300;
     game.G1.pow *= 3;
     game.buttonArray[3] = "";
-    //  game.buttonArray[7]=game.strArray[7];
+    game.buttonArray[6]=game.strArray[6];
     game.upgradeArray[3] = 1;
     updtGs();
   }
 }
 function u4() {
-  if (game.points >= 11000) {
-    game.points -= 11000;
+  if (game.points >= 29000) {
+    game.points -= 29000;
     game.G2.pow *= 4;
     game.buttonArray[4] = "";
     game.buttonArray[5]=game.strArray[5];
@@ -113,12 +115,32 @@ function u4() {
   }
 }
 function u5() {
-  if (game.points >= 70000) {
-    game.points -= 70000;
+  if (game.points >= 111111) {
+    game.points -= 111111;
     game.G2.pow *= 3;
     game.buttonArray[5] = "";
 //  game.buttonArray[5]=game.strArray[5];
     game.upgradeArray[5] = 1;
+    updtGs();
+  }
+}
+function u6() {
+  if (game.points >= 9000) {
+    game.points -= 9000;
+    game.G1.pow *= 3;
+    game.buttonArray[6] = "";
+    game.buttonArray[7]=game.strArray[7];
+    game.upgradeArray[6] = 1;
+    updtGs();
+  }
+}
+function u7() {
+  if (game.points >= 66000) {
+    game.points -= 66000;
+    game.G1.pow *= 3;
+    game.buttonArray[7] = "";
+//  game.buttonArray[7]=game.strArray[7];
+    game.upgradeArray[7] = 1;
     updtGs();
   }
 }
