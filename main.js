@@ -163,7 +163,6 @@ function updtPts() {
 };
 setInterval(function(){
   save();
-  game.points++;
 }, 15000);
 function save(){
 	localStorage.cc = btoa(JSON.stringify(game));
