@@ -171,3 +171,4 @@ function load(){
 	if(!localStorage.cc) return;
 	game = JSON.parse(atob(localStorage.cc));
 }
+load();
