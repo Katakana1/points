@@ -12,6 +12,11 @@ var game = {
     pow: 30,
     cost: 300,
   },
+  G3: {
+    amt: 0,
+    pow: 450,
+    cost: 9000,
+  },
   upgradeArray: [1337, 0, 0, 0],
   buttonArray: [420, "<button style = 'font-size:15px' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>"
     , "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>", ""],
@@ -36,6 +41,8 @@ function updtGs() {
   document.getElementById("g1cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G1.cost)) + " points.";
   document.getElementById("g2amt").textContent = "You have " + commaNumber(Math.round(game.G2.amt)) + " G2s, each producing " + commaNumber(Math.round(game.G2.pow)) + " points/sec.";
   document.getElementById("g2cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G2.cost)) + " points.";
+  document.getElementById("g3amt").textContent = "You have " + commaNumber(Math.round(game.G3.amt)) + " G3s, each producing " + commaNumber(Math.round(game.G3.pow)) + " points/sec.";
+  document.getElementById("g3cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G3.cost)) + " points.";
   document.getElementById("upgrades").innerHTML = game.buttonArray[1] + game.buttonArray[2] + game.buttonArray[3];
 };
 function G1() {
@@ -51,6 +58,14 @@ function G2() {
     game.points -= game.G2.cost;
     game.G2.cost *= 1.1;
     game.G2.amt++;
+    updtGs();
+  }
+};
+function G3() {
+  if (game.points >= game.G3.cost) {
+    game.points -= game.G3.cost;
+    game.G3.cost *= 1.1;
+    game.G3.amt++;
     updtGs();
   }
 };
@@ -85,7 +100,7 @@ function u3() {
   }
 }
 setInterval(function () {
-  game.pps = game.G1.amt * game.G1.pow + game.G2.amt * game.G2.pow;
+  game.pps = game.G1.amt * game.G1.pow + game.G2.amt * game.G2.pow + game.G3.amt * game.G3.pow;
   game.points += game.pps / 30;
   if(started == true){
     updtGs();
