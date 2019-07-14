@@ -89,7 +89,7 @@ function u3() {
 setInterval(function () {
   game.pps = game.G1.amt * game.G1.pow + game.G2.amt * game.G2.pow;
   game.points += game.pps / 30;
-  updt();
+  updtPts();
 }, 1000 / 30);
 function updtPts() {
   document.getElementById("points").textContent = "You have " + commaNumber(Math.round(game.points)) + " points, and are getting " + commaNumber(Math.round(game.pps)) + " points every second.";
