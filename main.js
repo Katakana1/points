@@ -161,3 +161,14 @@ function updtPts() {
     document.getElementById("ppc").textContent = "You get 1 point every click.";
   }
 };
+setInterval(function(){
+  save();
+  game.points++;
+}, 15000);
+function save(){
+	localStorage.cc = btoa(JSON.stringify(game));
+}
+function load(){
+	if(!localStorage.cc) return;
+	game = JSON.parse(atob(localStorage.cc));
+}
