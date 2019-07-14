@@ -19,6 +19,7 @@ var game = {
     "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>",
     "<button style = 'font-size:15px' onclick = 'u3()'>Upgrade G1s [2]<br>Costs 2,300 points<br>x3 multiplier to G1s</button><br>"],
 }
+started = true;
 function commaNumber(x) {
   x = x.toString();
   var pattern = /(-?\d+)(\d{3})/;
@@ -35,11 +36,8 @@ function updtGs() {
   document.getElementById("g1cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G1.cost)) + " points.";
   document.getElementById("g2amt").textContent = "You have " + commaNumber(Math.round(game.G2.amt)) + " G2s, each producing " + commaNumber(Math.round(game.G2.pow)) + " points/sec.";
   document.getElementById("g2cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G2.cost)) + " points.";
-};
-function updtUps() {
   document.getElementById("upgrades").innerHTML = game.buttonArray[1] + game.buttonArray[2] + game.buttonArray[3];
 };
-updtUps();
 function G1() {
   if (game.points >= game.G1.cost) {
     game.points -= game.G1.cost;
@@ -63,7 +61,7 @@ function u1() {
     game.buttonArray[3] = game.strArray[3];
     game.buttonArray[1] = "";
     game.upgradeArray[1] = 1;
-    updtUps();
+    updtGs();
   }
 }
 function u2() {
@@ -73,7 +71,7 @@ function u2() {
     game.buttonArray[2] = "";
     //  game.buttonArray[3]=game.strArray[3];
     game.upgradeArray[2] = 1;
-    updtUps();
+    updtGs();
   }
 }
 function u3() {
@@ -83,12 +81,16 @@ function u3() {
     game.buttonArray[3] = "";
     //  game.buttonArray[4]=game.strArray[4];
     game.upgradeArray[3] = 1;
-    updtUps();
+    updtGs();
   }
 }
 setInterval(function () {
   game.pps = game.G1.amt * game.G1.pow + game.G2.amt * game.G2.pow;
   game.points += game.pps / 30;
+  if(started == true){
+    updtGs();
+    started = false;
+  }
   updtPts();
 }, 1000 / 30);
 function updtPts() {
