@@ -17,12 +17,15 @@ var game = {
     pow: 450,
     cost: 9000,
   },
-  upgradeArray: [1337, 0, 0, 0],
-  buttonArray: [420, "<button style = 'font-size:15px' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>"
-    , "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>", ""],
+  upgradeArray: [1337, 0, 0, 0, 0, 0],
+  buttonArray: [420, "<button style = 'font-size:15px' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>", 
+    "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>", "",
+    "<button style = 'font-size:15px' onclick = 'u4()'>Upgrade G2s<br>Costs 11,000 points<br>x4 multiplier to G2s</button><br>", ""],
   strArray: [69, "<button style = 'font-size:15px' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>",
     "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u3()'>Upgrade G1s [2]<br>Costs 2,300 points<br>x3 multiplier to G1s</button><br>"],
+    "<button style = 'font-size:15px' onclick = 'u3()'>Upgrade G1s [2]<br>Costs 2,300 points<br>x3 multiplier to G1s</button><br>",
+    "<button style = 'font-size:15px' onclick = 'u4()'>Upgrade G2s<br>Costs 11,000 points<br>x4 multiplier to G2s</button><br>",
+    "<button style = 'font-size:15px' onclick = 'u5()'>Upgrade G2s [2]<br>Costs 70,000 points<br>x3 multiplier to G2s</button><br>"],
 }
 started = true;
 function commaNumber(x) {
@@ -43,7 +46,7 @@ function updtGs() {
   document.getElementById("g2cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G2.cost)) + " points.";
   document.getElementById("g3amt").textContent = "You have " + commaNumber(Math.round(game.G3.amt)) + " G3s, each producing " + commaNumber(Math.round(game.G3.pow)) + " points/sec.";
   document.getElementById("g3cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G3.cost)) + " points.";
-  document.getElementById("upgrades").innerHTML = game.buttonArray[1] + game.buttonArray[2] + game.buttonArray[3];
+  document.getElementById("upgrades").innerHTML = game.buttonArray[1] + game.buttonArray[2] + game.buttonArray[3] + game.buttonArray[4] + game.buttonArray[5];
 };
 function G1() {
   if (game.points >= game.G1.cost) {
@@ -94,8 +97,28 @@ function u3() {
     game.points -= 2300;
     game.G1.pow *= 3;
     game.buttonArray[3] = "";
-    //  game.buttonArray[4]=game.strArray[4];
+    //  game.buttonArray[7]=game.strArray[7];
     game.upgradeArray[3] = 1;
+    updtGs();
+  }
+}
+function u4() {
+  if (game.points >= 11000) {
+    game.points -= 11000;
+    game.G2.pow *= 4;
+    game.buttonArray[4] = "";
+    game.buttonArray[5]=game.strArray[5];
+    game.upgradeArray[4] = 1;
+    updtGs();
+  }
+}
+function u5() {
+  if (game.points >= 70000) {
+    game.points -= 70000;
+    game.G2.pow *= 3;
+    game.buttonArray[5] = "";
+//  game.buttonArray[5]=game.strArray[5];
+    game.upgradeArray[5] = 1;
     updtGs();
   }
 }
