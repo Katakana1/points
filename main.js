@@ -1,5 +1,5 @@
 var game = {
-  points: 0,
+  points: 10,
   pps: 0,
   clickPower: 1,
   G1: {
@@ -9,25 +9,22 @@ var game = {
   },
   G2: {
     amt: 0,
-    pow: 30,
-    cost: 300,
+    pow: 1,
+    cost: 200,
   },
   G3: {
     amt: 0,
-    pow: 450,
-    cost: 9000,
+    pow: 1,
+    cost: 4000,
   },
-  upgradeArray: [1337, 0, 0, 0, 0, 0, 0, 0],
-  buttonArray: [420, "<button style = 'font-size:15px' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>", 
-    "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>", "",
-    "<button style = 'font-size:15px' onclick = 'u4()'>Upgrade G2s<br>Costs 29,000 points<br>x4 multiplier to G2s</button><br>", "", "", ""],
-  strArray: [69, "<button style = 'font-size:15px' onclick = 'u1()'>Upgrade G1s<br>Costs 400 points<br>x4 multiplier to G1s</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u2()'>Make clicks stronger<br>Costs 600 points<br>x3 multiplier to clicks</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u3()'>Upgrade G1s [2]<br>Costs 2,300 points<br>x3 multiplier to G1s</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u4()'>Upgrade G2s<br>Costs 29,000 points<br>x3 multiplier to G2s</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u5()'>Upgrade G2s [2]<br>Costs 111,111 points<br>x2 multiplier to G2s</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u6()'>Upgrade G1s [3]<br>Costs 9,000 points<br>x3 multiplier to G1s</button><br>",
-    "<button style = 'font-size:15px' onclick = 'u7()'>Upgrade G1s [4]<br>Costs 66,000 points<br>x3 multiplier to G1s</button><br>"],
+  G4: {
+    amt: 0,
+    pow: 1,
+    cost: 80000,
+  },
+  upgradeArray: [1337],
+  buttonArray: [420],
+  strArray: [69],
 }
 started = true;
 function commaNumber(x) {
@@ -37,10 +34,6 @@ function commaNumber(x) {
     x = x.replace(pattern, "$1,$2");
   return x;
 }
-function clicky() {
-  game.points += game.clickPower;
-  document.getElementById("points").textContent = "You have " + commaNumber(Math.round(game.points)) + " points, and are getting " + commaNumber(Math.round(game.pps)) + " points every second.";
-};
 function updtGs() {
   document.getElementById("g1amt").textContent = "You have " + commaNumber(Math.round(game.G1.amt)) + " G1s, each producing " + commaNumber(Math.round(game.G1.pow)) + " points/sec.";
   document.getElementById("g1cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G1.cost)) + " points.";
@@ -48,7 +41,13 @@ function updtGs() {
   document.getElementById("g2cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G2.cost)) + " points.";
   document.getElementById("g3amt").textContent = "You have " + commaNumber(Math.round(game.G3.amt)) + " G3s, each producing " + commaNumber(Math.round(game.G3.pow)) + " points/sec.";
   document.getElementById("g3cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G3.cost)) + " points.";
-  document.getElementById("upgrades").innerHTML = game.buttonArray[1] + game.buttonArray[2] + game.buttonArray[3] + game.buttonArray[4] + game.buttonArray[5] + game.buttonArray[6] + game.buttonArray[7];
+  document.getElementById("g4amt").textContent = "You have " + commaNumber(Math.round(game.G4.amt)) + " G4s, each producing " + commaNumber(Math.round(game.G4.pow)) + " points/sec.";
+  document.getElementById("g4cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G4.cost)) + " points.";
+};
+function updtMlt(){
+  game.G2.pow = Math.pow(1.03,game.G1.amt);
+  game.G3.pow = Math.pow(1.03,(game.G1.amt)+(game.G2.amt));
+  game.G4.pow = Math.pow(1.03,(game.G1.amt)+(game.G2.amt)+(game.G3.amt));
 };
 function G1() {
   if (game.points >= game.G1.cost) {
@@ -56,6 +55,7 @@ function G1() {
     game.G1.cost *= 1.1;
     game.G1.amt++;
     updtGs();
+    updtMlt();
   }
 };
 function G2() {
@@ -64,6 +64,7 @@ function G2() {
     game.G2.cost *= 1.1;
     game.G2.amt++;
     updtGs();
+    updtMlt();
   }
 };
 function G3() {
@@ -72,80 +73,20 @@ function G3() {
     game.G3.cost *= 1.1;
     game.G3.amt++;
     updtGs();
+    updtMlt();
   }
 };
-function u1() {
-  if (game.points >= 400) {
-    game.points -= 400;
-    game.G1.pow *= 4;
-    game.buttonArray[3] = game.strArray[3];
-    game.buttonArray[1] = "";
-    game.upgradeArray[1] = 1;
+function G4() {
+  if (game.points >= game.G4.cost) {
+    game.points -= game.G4.cost;
+    game.G4.cost *= 1.1;
+    game.G4.amt++;
     updtGs();
+    updtMlt();
   }
-}
-function u2() {
-  if (game.points >= 600) {
-    game.points -= 600;
-    game.clickPower *= 3;
-    game.buttonArray[2] = "";
-    //  game.buttonArray[3]=game.strArray[3];
-    game.upgradeArray[2] = 1;
-    updtGs();
-  }
-}
-function u3() {
-  if (game.points >= 2300) {
-    game.points -= 2300;
-    game.G1.pow *= 3;
-    game.buttonArray[3] = "";
-    game.buttonArray[6]=game.strArray[6];
-    game.upgradeArray[3] = 1;
-    updtGs();
-  }
-}
-function u4() {
-  if (game.points >= 29000) {
-    game.points -= 29000;
-    game.G2.pow *= 4;
-    game.buttonArray[4] = "";
-    game.buttonArray[5]=game.strArray[5];
-    game.upgradeArray[4] = 1;
-    updtGs();
-  }
-}
-function u5() {
-  if (game.points >= 111111) {
-    game.points -= 111111;
-    game.G2.pow *= 3;
-    game.buttonArray[5] = "";
-//  game.buttonArray[5]=game.strArray[5];
-    game.upgradeArray[5] = 1;
-    updtGs();
-  }
-}
-function u6() {
-  if (game.points >= 9000) {
-    game.points -= 9000;
-    game.G1.pow *= 3;
-    game.buttonArray[6] = "";
-    game.buttonArray[7]=game.strArray[7];
-    game.upgradeArray[6] = 1;
-    updtGs();
-  }
-}
-function u7() {
-  if (game.points >= 66000) {
-    game.points -= 66000;
-    game.G1.pow *= 3;
-    game.buttonArray[7] = "";
-//  game.buttonArray[7]=game.strArray[7];
-    game.upgradeArray[7] = 1;
-    updtGs();
-  }
-}
+};
 setInterval(function () {
-  game.pps = game.G1.amt * game.G1.pow + game.G2.amt * game.G2.pow + game.G3.amt * game.G3.pow;
+  game.pps = game.G1.amt * game.G1.pow + game.G2.amt * game.G2.pow + game.G3.amt * game.G3.pow + game.G4.amt * game.G4.pow;
   game.points += game.pps / 30;
   if(started == true){
     updtGs();
@@ -155,15 +96,7 @@ setInterval(function () {
 }, 1000 / 30);
 function updtPts() {
   document.getElementById("points").textContent = "You have " + commaNumber(Math.round(game.points)) + " points, and are getting " + commaNumber(Math.round(game.pps)) + " points every second.";
-  if (Math.round(game.clickPower) != 1) {
-    document.getElementById("ppc").textContent = "You get " + commaNumber(Math.round(game.clickPower)) + " points every click.";
-  } else {
-    document.getElementById("ppc").textContent = "You get 1 point every click.";
-  }
 };
-setInterval(function(){
-  save();
-}, 15000);
 function save(){
 	localStorage.cc = btoa(JSON.stringify(game));
 }
@@ -171,4 +104,6 @@ function load(){
 	if(!localStorage.cc) return;
 	game = JSON.parse(atob(localStorage.cc));
 }
-load();
+setInterval(function(){
+  save();
+}, 15000);
