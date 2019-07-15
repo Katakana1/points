@@ -104,6 +104,3 @@ function load(){
 	if(!localStorage.cc) return;
 	game = JSON.parse(atob(localStorage.cc));
 }
-setInterval(function(){
-  save();
-}, 15000);
