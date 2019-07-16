@@ -26,6 +26,42 @@ var game = {
   buttonArray: [420],
   strArray: [69],
 }
+function hardReset(){
+	game = {
+  	points: 10,
+  	pps: 0,
+  	clickPower: 1,
+  	G1: {
+  	  amt: 0,
+  	  pow: 1,
+  	  cost: 10,
+  	},
+  	G2: {
+  	  amt: 0,
+  	  pow: 1,
+  	  cost: 200,
+  	},
+  	G3: {
+  	  amt: 0,
+  	  pow: 1,
+  	  cost: 4000,
+  	},
+  	G4: {
+  	  amt: 0,
+  	  pow: 1,
+  	  cost: 80000,
+  	},
+  	upgradeArray: [1337],
+  	buttonArray: [420],
+  	strArray: [69],
+	};
+};
+function hrconf(){
+	var x = confirm("Do you really want to hard reset?");
+	if(x == true){
+		hardReset();
+	}
+};
 started = true;
 function commaNumber(x) {
   x = x.toString();
