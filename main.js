@@ -70,15 +70,40 @@ function commaNumber(x) {
     x = x.replace(pattern, "$1,$2");
   return x;
 }
+function abbrev(x) {
+  if(x < 1e10){
+    return commaNumber(Math.round(x));
+  } else if(x < 1e12){
+    return (x/1e9).toFixed(2) + "B";
+  } else if(x < 1e15){
+    return (x/1e12).toFixed(2) + "T";
+  } else if(x < 1e18){
+    return (x/1e15).toFixed(2) + "Qa";
+  } else if(x < 1e21){
+    return (x/1e18).toFixed(2) + "Qi";
+  } else if(x < 1e24){
+    return (x/1e21).toFixed(2) + "Sx";
+  } else if(x < 1e27){
+    return (x/1e24).toFixed(2) + "Sp";
+  } else if(x < 1e30){
+    return (x/1e27).toFixed(2) + "O";
+  } else if(x < 1e33){
+    return (x/1e30).toFixed(2) + "N";
+  } else if(x < 1e36){
+    return (x/1e33).toFixed(2) + "D";
+  } else {
+    return (x/Math.pow(10,Math.floor(Math.log10(x)))).toFixed(2)+"e"+Math.floor(Math.log10(x));
+  }
+}
 function updtGs() {
-  document.getElementById("g1amt").textContent = "You have " + commaNumber(Math.round(game.G1.amt)) + " G1s, each producing " + commaNumber(Math.round(game.G1.pow)) + " points/sec.";
-  document.getElementById("g1cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G1.cost)) + " points.";
-  document.getElementById("g2amt").textContent = "You have " + commaNumber(Math.round(game.G2.amt)) + " G2s, each producing " + commaNumber(Math.round(game.G2.pow)) + " points/sec.";
-  document.getElementById("g2cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G2.cost)) + " points.";
-  document.getElementById("g3amt").textContent = "You have " + commaNumber(Math.round(game.G3.amt)) + " G3s, each producing " + commaNumber(Math.round(game.G3.pow)) + " points/sec.";
-  document.getElementById("g3cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G3.cost)) + " points.";
-  document.getElementById("g4amt").textContent = "You have " + commaNumber(Math.round(game.G4.amt)) + " G4s, each producing " + commaNumber(Math.round(game.G4.pow)) + " points/sec.";
-  document.getElementById("g4cost").textContent = "Buying one costs " + commaNumber(Math.round(game.G4.cost)) + " points.";
+  document.getElementById("g1amt").textContent = "You have " + abbrev(Math.round(game.G1.amt)) + " G1s, each producing " + abbrev(Math.round(game.G1.pow)) + " points/sec.";
+  document.getElementById("g1cost").textContent = "Buying one costs " + abbrev(Math.round(game.G1.cost)) + " points.";
+  document.getElementById("g2amt").textContent = "You have " + abbrev(Math.round(game.G2.amt)) + " G2s, each producing " + abbrev(Math.round(game.G2.pow)) + " points/sec.";
+  document.getElementById("g2cost").textContent = "Buying one costs " + abbrev(Math.round(game.G2.cost)) + " points.";
+  document.getElementById("g3amt").textContent = "You have " + abbrev(Math.round(game.G3.amt)) + " G3s, each producing " + abbrev(Math.round(game.G3.pow)) + " points/sec.";
+  document.getElementById("g3cost").textContent = "Buying one costs " + abbrev(Math.round(game.G3.cost)) + " points.";
+  document.getElementById("g4amt").textContent = "You have " + abbrev(Math.round(game.G4.amt)) + " G4s, each producing " + abbrev(Math.round(game.G4.pow)) + " points/sec.";
+  document.getElementById("g4cost").textContent = "Buying one costs " + abbrev(Math.round(game.G4.cost)) + " points.";
 };
 function updtMlt(){
   game.G2.pow = Math.pow(1.03,game.G1.amt);
@@ -131,7 +156,7 @@ setInterval(function () {
   updtPts();
 }, 1000 / 30);
 function updtPts() {
-  document.getElementById("points").textContent = "You have " + commaNumber(Math.round(game.points)) + " points, and are getting " + commaNumber(Math.round(game.pps)) + " points every second.";
+  document.getElementById("points").textContent = "You have " + abbrev(Math.round(game.points)) + " points, and are getting " + abbrev(Math.round(game.pps)) + " points every second.";
 };
 function save(){
 	localStorage.cc = btoa(JSON.stringify(game));
